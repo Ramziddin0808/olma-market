@@ -1,0 +1,324 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>olma market - Home</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="container-wrap toper-inner">
+            <div class="location">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Toshkent</span>
+            </div>
+            <div class="top-links">
+                <a href="#">Sotuvchi bo'lish</a>
+                <a href="#">Topshirish punktini ochish</a>
+                <a href="#">Savol-javob</a>
+                <a href="#">Buyurtmalarim</a>
+                <a href="#" class="lang-selector">O'zbekcha</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="container-wrap header-inner">
+            <a href="{% url 'home' %}" class="logo">olma <span>market</span></a>
+
+    <div class="catalog-wrapper">
+    <button class="catalog-btn" id="catalogToggleBtn" type="button">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        Katalog
+    </button>
+    
+    <div class="catalog-dropdown" id="catalogDropdown">
+        <div class="filter-section">
+            <h3>Sifati bo'yicha</h3>
+            <ul>
+                <li><a href="?quality=yaxshi">Yaxshi mahsulotlar</a></li>
+                <li><a href="?quality=o'rtacha">O'rtacha mahsulotlar</a></li>
+                <li><a href="?quality=yomon">Yomon mahsulotlar</a></li>
+            </ul>
+        </div>
+        <div class="filter-section">
+            <h3>Kategoriyalar</h3>
+            <ul>
+                <li><a href="?turi=musiqa">Musiqa</a></li>
+                <li><a href="?turi=elektronika">Elektronika</a></li>
+                <li><a href="?turi=mebel">Mebel</a></li>
+            </ul>
+        </div>
+    </div> </div>
+
+<form method="get" action="{% url 'home' %}" class="search-form">
+    <input type="text" name="search" value="{{ query|default:'' }}" placeholder="Mahsulotlar va turkumlarni izlash">
+    <button type="submit" class="search-btn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+    </button>
+</form>
+    
+<div class="nav-icons-group" style="display: flex; gap: 15px; align-items: center;">
+    {% if user.is_authenticated %}
+        <a href="{% url 'profil' %}" class="nav-icon-link">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>{{ request.user.username }}</span>
+        </a>
+    {% else %}
+        <a href="{% url 'login' %}" class="nav-icon-link">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Kirish</span>
+        </a>
+    {% endif %}
+
+    <a href="{% url 'saralanganlar_sahifasi' %}" class="nav-icon-link">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span>Saralangan</span>
+    </a>
+
+    <a href="/savat/" class="nav-icon-link">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span>Savat</span>
+    </a>
+</div>
+</header>
+
+    <section class="container-wrap promo-banner-section">
+        <div class="promo-carousel">
+            <div class="carousel-slide active">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWlIowSaw9Dz6L4AXZbhNv824aUJUhU_aAuT9FyZmUol9nyMHh-rdzxB-k6XlP95IjoG1fZyFVRn-f_DpLI1qzc-8CU8D4YmG3aVfE8hc&s=10" alt="Salqinlik nafasi" class="banner-bg-img">
+                <div class="banner-text-content">
+                    <h1 class="banner-title" style="color: #000;">Salqinlik nafasi</h1>
+                    <p class="banner-subtitle">Ichimliklar hamyonbop narxlarda</p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <img src="https://domtut.uz/resources/uploads/post/top-10-internet-magazinov-bytovoy-tehniki-v-tashkente.jpg" alt="Katta chegirmalar" class="banner-bg-img">
+                <div class="banner-text-content">
+                    <h1 class="banner-title">Katta chegirmalar</h1>
+                    <p class="banner-subtitle">Maishiy texnikalar hamyonbop narxlarda</p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <img src="https://sinaps.uz/wp-content/uploads/2023/01/ezgif-1-de1860f8b4.webp" alt="Katta chegirmalar" class="banner-bg-img">
+                <div class="banner-text-content">
+                    <h1 class="banner-title">Katta chegirmalar xobilar uchun</h1>
+                    <p class="banner-subtitle">Musiqa asboblari</p>
+                </div>
+            </div>
+
+            <button class="carousel-arrow prev-btn" onclick="moveSlide(-1)">‹</button>
+            <button class="carousel-arrow next-btn" onclick="moveSlide(1)">›</button>
+
+            <div class="carousel-dots">
+                <span class="carousel-dot active" onclick="currentSlide(0)"></span>
+                <span class="carousel-dot" onclick="currentSlide(1)"></span>
+                <span class="carousel-dot" onclick="currentSlide(2)"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-wrap quick-cats">
+        <a href="#" class="q-link"><span class="q-icon">🧸</span> Onalar va bolalar</a>
+        <a href="#" class="q-link"><span class="q-icon">⚽</span> Futbol</a>
+        <a href="#" class="q-link"><span class="q-icon">👕</span> Zamonaviy bozor</a>
+        <a href="#" class="q-link"><span class="q-icon">🍉</span> Chilla</a>
+    </section>
+
+    <main class="container-wrap main-content">
+        <div class="section-head-wrap">
+            <div class="section-head">
+                <h2>Mashhur mahsulotlar</h2>
+                <span class="chev">›</span>
+            </div>
+        </div>
+ 
+        <div class="grid">
+            {% for market in marketlar %}
+                <div class="uzum-card">
+                    <div class="card-media">
+                        {% if market.id in saralangan_ids %}
+                            <button class="fav-btn is-active" data-id="{{ market.id }}" onclick="toggleLike(this)" type="button">
+                        {% else %}
+                            <button class="fav-btn" data-id="{{ market.id }}" onclick="toggleLike(this)" type="button">
+                        {% endif %}
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+
+                        {% if market.image %}
+                            <img src="{{ market.image.url }}" alt="{{ market.title }}">
+                        {% elif market.gallery.all %}
+                            <img src="{{ market.gallery.first.image.url }}" alt="{{ market.title }}">
+                        {% else %}
+                            <div style="display:flex; justify-content:center; align-items:center; height:100%; background:#edf2f7; font-weight:bold;">No image</div>
+                        {% endif %}
+                    </div>
+     
+                    <div class="card-body">
+                        <a href="{% url 'market_detail' market.id %}" class="card-title">{{ market.title }}</a>
+                        <div class="card-meta">
+                            <span class="price"><strong>{{ market.narx }} so'm</strong></span>
+                            <span class="quality">{{ market.sifati }}</span>
+                        </div>
+                        <a href="{% url 'market_detail' market.id %}" class="card-cta-btn">O'qish</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p style="grid-column: 1/-1; text-align: center; color: #777; padding: 40px 0;">Hozircha hech qanday ma'lumot yo'q.</p>
+            {% endfor %}
+        </div>
+    </main>     
+
+    <script>
+        // Karusel skripti
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+
+        function showSlide(index) {
+            if (index >= slides.length) currentSlideIndex = 0;
+            if (index < 0) currentSlideIndex = slides.length - 1;
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function moveSlide(step) {
+            currentSlideIndex += step;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index;
+            showSlide(currentSlideIndex);
+        }
+
+        setInterval(() => {
+            moveSlide(1);
+        }, 5000);
+
+        // Katalog ochilish skripti
+        const catalogToggleBtn = document.getElementById('catalogToggleBtn');
+        const catalogDropdown = document.getElementById('catalogDropdown');
+
+        catalogToggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            catalogDropdown.classList.toggle('is-active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!catalogDropdown.contains(e.target) && e.target !== catalogToggleBtn) {
+                catalogDropdown.classList.remove('is-active');
+            }
+        });
+
+        // AJAX Like (Saralangan) skripti
+        function toggleLike(button) {
+            const mahsulotId = button.getAttribute('data-id');
+            const csrftoken = '{{ csrf_token }}';
+
+            fetch(`/saralangan/toggle/${mahsulotId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'added' || data.status === 'removed') {
+                    button.classList.toggle('is-active');
+                } else {
+                    alert("Tizimga kirishingiz kerak!");
+                }
+            })
+            .catch(error => console.error('Xatolik:', error));
+        }
+    </script>
+    <div id="ai-chat-wrapper" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: sans-serif;">
+    <button id="chat-toggle-btn" style="background: #7000ff; color: white; border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 24px;">💬</button>
+
+    <div id="chat-box" style="display: none; width: 350px; height: 450px; background: white; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 1px solid #e3e5ec; flex-direction: column; position: absolute; bottom: 70px; right: 0;">
+        <div style="background: #7000ff; color: white; padding: 15px; border-top-left-radius: 12px; border-top-right-radius: 12px; font-weight: bold;">olma market AI Yordamchi</div>
+        <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <div style="background: #f2f4f7; padding: 8px 12px; border-radius: 8px; align-self: flex-start; max-width: 80%;">Salom! Men 'olma market' yordamchisiman. Sizga qaysi mahsulotni topishda ko'maklashay?</div>
+        </div>
+        <div style="padding: 10px; border-top: 1px solid #e3e5ec; display: flex; gap: 5px;">
+            <input type="text" id="chat-input" placeholder="Gitaralar bormi?..." style="flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none;">
+            <button id="chat-send-btn" style="background: #7000ff; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer;">Yuborish</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatToggleBtn = document.getElementById('chat-toggle-btn');
+    const chatBox = document.getElementById('chat-box');
+    const chatInput = document.getElementById('chat-input');
+    const chatSendBtn = document.getElementById('chat-send-btn');
+    const chatMessages = document.getElementById('chat-messages');
+
+    // Chat oynasini ochish/yopish
+    chatToggleBtn.addEventListener('click', () => {
+        chatBox.style.display = chatBox.style.display === 'none' ? 'flex' : 'none';
+    });
+
+    // Xabar yuborish funksiyasi
+    function sendMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        // Foydalanuvchi xabarini ekranga chiqarish
+        chatMessages.innerHTML += `<div style="background: #7000ff; color: white; padding: 8px 12px; border-radius: 8px; align-self: flex-end; max-width: 80%;">${text}</div>`;
+        chatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // AI kutish holati
+        const loadingId = 'loading-' + Date.now();
+        chatMessages.innerHTML += `<div id="${loadingId}" style="background: #f2f4f7; color: #777; padding: 8px 12px; border-radius: 8px; align-self: flex-start;">O'ylamoqdaman...</div>`;
+
+        // Django-ga so'rov yuborish
+        fetch('/ai-chat/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text })
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById(loadingId).remove();
+            chatMessages.innerHTML += `<div style="background: #f2f4f7; padding: 8px 12px; border-radius: 8px; align-self: flex-start; max-width: 80%;">${data.reply}</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        })
+        .catch(() => {
+            document.getElementById(loadingId).remove();
+        });
+    }
+
+    chatSendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+</script>
+</body>
+</html>

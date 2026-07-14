@@ -1,0 +1,124 @@
+/* Umumiy sozlamalar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ekran balandligini to'liq egallash */
+    overflow-y: auto;  /* Agar kontent ko'paysa, pastga skroll bo'lishi uchun */
+}
+
+/* Profil kartasi — ASOSIY O'ZGARISH SHU YERDA */
+.profile-card {
+    height: auto;          /* Qat'iy 500px o'rniga avtomatik balandlik */
+    min-height: 500px;     /* Kamida 500px bo'ladi */
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 400px;          /* Elementlar sig'ishi uchun kenglikni 350px dan 400px ga oshirdik */
+    padding: 25px;         /* Ichki chekinishlar (padding) qo'shildi */
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin: 40px 0;        /* Tepadan va pastdan bo'shliq */
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Profil rasmi stili */
+.profile-image img {
+    width: 150px;          /* 300px juda kattalik qilgan, 150px standart chiroyli o'lcham */
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #3b82f6;
+    padding: 3px;
+    margin-bottom: 15px;
+}
+
+/* Qolgan stillar o'zgarishsiz qoladi... */
+.profile-name {
+    font-size: 24px;
+    color: #1f2937;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.separator {
+    border: 0;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 15px 0;
+}
+
+.profile-details {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9fafb;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #f3f4f6;
+}
+
+.detail-label {
+    font-size: 14px;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.detail-value {
+    font-size: 14px;
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.edit-btn {
+    width: 100%;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 5px;
+}
+
+.edit-btn:hover {
+    background-color: #2563eb;
+}
+
+/* ORQA FON VIDEO SOZLAMALARI */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #f3f4f6;
+}
+
+.video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4; /* Orqa fon qorli bo'lgani uchun matnlar aniq ko'rinishi uchun xiralikni oshirdik */
+}

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahsulotni tahrirlash</title>
+    <link rel="stylesheet" href="{% static 'profil.css' %}">
+    <style>
+        /* Formani profil kartasiga moslab chiroyli qilish uchun qo'shimcha stillar */
+        .form-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: left;
+            margin: 40px auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #4b5563;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-bg">
+        <video autoplay loop muted playsinline>
+            <source src="{% static 'dark-winter-forest-road-moewalls-com.mp4' %}" type="video/mp4">
+        </video>
+    </div>  
+
+    <div class="form-container">
+        <h2 style="text-align: center; margin-bottom: 20px; color: #1f2937;">📝 Tahrirlash</h2>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button type="submit" style="flex: 1; background-color: #3b82f6; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: 500; cursor: pointer;">
+                    Saqlash
+                </button>
+                <a href="{% url 'profil' %}" style="text-decoration: none; flex: 1;">
+                    <button type="button" style="width: 100%; background-color: #ef4444; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: 500; cursor: pointer;">
+                        Bekor qilish
+                    </button>
+                </a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

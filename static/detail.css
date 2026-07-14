@@ -1,0 +1,205 @@
+/* DETAIL PAGE SPETSIFIK STYLING */
+.detail-page {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background: transparent !important; /* Fon video ko'rinishi uchun shaffof */
+}
+
+/* ORQA FON VIDEO SOZLAMASI */
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.35; /* Videoning yorqinligi */
+    pointer-events: none;
+}
+
+/* ASOSIY KONTEYNER (SHAFFOF OYNA EFFEKTI) */
+.detail-container {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    max-width: 1000px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+    .detail-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CHAP TOMON - RASM */
+.detail-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image-wrap {
+    width: 100%;
+    max-height: 450px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.product-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 450px;
+}
+
+.detail-placeholder {
+    width: 100%;
+    height: 350px;
+    background: rgba(127, 0, 255, 0.1);
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 72px;
+    color: #7f00ff;
+    font-weight: bold;
+}
+
+/* O'NG TOMON - MA'LUMOTLAR */
+.detail-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-title {
+    font-size: 26px;
+    color: #1f2026;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.product-rating {
+    font-size: 14px;
+    color: #8b8e99;
+    margin-bottom: 20px;
+}
+
+.product-price-box {
+    margin-bottom: 25px;
+}
+
+.current-price {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2026;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.loan-badge {
+    display: inline-block;
+    background: #ffff00;
+    color: #1f2026;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.product-description h3 {
+    font-size: 16px;
+    color: #1f2026;
+    margin-bottom: 10px;
+}
+
+.desc-content {
+    font-size: 15px;
+    color: #4e4f56;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* TUGMALAR */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-buy {
+    background: #f2f4f7;
+    color: #1f2026;
+}
+
+.btn-buy:hover {
+    background: #e4e7ec;
+}
+
+.btn-cart {
+    background: #7f00ff;
+    color: #fff;
+}
+
+.btn-cart:hover {
+    background: #6600cc;
+}
+
+.detail-hr {
+    border: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+/* ORQAGA QAYTISH LINKI */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #7f00ff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #5500aa;
+}

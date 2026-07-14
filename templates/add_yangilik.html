@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahsulot Qo'shish - Uzum Market</title>
+    <link rel="stylesheet" href="{% static 'add.css' %}">
+</head>
+<body class="add-page">
+    <video autoplay loop muted playsinline class="bg-video">
+    <source src="background.mp4" type="video/mp4">
+    Brauzeringiz ushbu videoni qo'llab-quvvatlamaydi.
+</video>
+
+
+    <video autoplay loop muted playsinline class="bg-video">
+        <source src="{% static 'dark-winter-forest-road-moewalls-com.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="form-container">
+        <h1>Marketga mahsulot qo'shish</h1>
+        
+        <form method="post" enctype="multipart/form-data" class="market-form">
+            {% csrf_token %}
+
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+               <label for="images">Qo'shimcha rasmlar:</label>
+               <input type="file" name="images" id="images" multiple accept="image/*">
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Saqlash</button>
+                <a href="{% url 'home' %}" class="btn-cancel">Bekor qilish</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

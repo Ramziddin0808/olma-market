@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foydalanuvchi Profili</title>
+    <link rel="stylesheet" href="{% static 'profil.css' %}">
+</head>
+<body>
+    <div class="video-bg">
+        <video autoplay loop muted playsinline>
+            <source src="{% static 'dark-winter-forest-road-moewalls-com.mp4' %}" type="video/mp4">
+            Brauzeringiz videoni qo'llab-quvvatlamaydi.
+        </video>
+    </div>  
+
+    <div class="profile-card">
+        <div class="profile-image">
+            {% if request.user.avatar %}
+                <img src="{{ request.user.avatar.url }}" alt="Profil rasmi">
+            {% else %}
+                <img src="https://via.placeholder.com/150" alt="Standart rasm">
+            {% endif %}
+        </div>
+        
+        <div class="profile-info">
+            <h2 class="profile-name">{{ request.user.username }}</h2>
+            
+            <hr class="separator">
+            
+            <div class="profile-details">
+                <div class="detail-item">
+                    <span class="detail-label">Telefon:</span>
+                    <span class="detail-value">{{ request.user.phone }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="{% url 'add_market' %}" style="text-decoration: none; width: 100%;">
+                <button type="button" style="width: 100%; background-color: #10b981; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: 500; cursor: pointer;">➕ Mahsulot qo'shish</button>
+            </a>
+            
+            <button class="edit-btn">Profilni tahrirlash</button>
+            
+            <a href="{% url 'logout' %}" style="text-decoration: none; width: 100%;">
+                <button style="width: 100%; background-color: #ef4444; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 16px; font-weight: 500; cursor: pointer;">Tizimdan chiqish</button>
+            </a>
+        </div>
+
+        <hr class="separator">
+
+        <h3 style="margin-bottom: 15px; color: #1f2937;">Mening mahsulotlarim</h3>
+        <div class="my-products-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 300px; overflow-y: auto; padding-right: 5px;">
+            {% for product in user_products %}
+                <div class="product-item" style="display: flex; align-items: center; justify-content: space-between; background: #f9fafb; padding: 10px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px;">
+                        {% endif %}
+                        <div style="text-align: left;">
+                            <div style="font-size: 14px; font-weight: 600; color: #1f2937;">{{ product.title|truncatechars:15 }}</div>
+                            <div style="font-size: 12px; color: #6b7280;">{{ product.narx }} so'm</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 5px;">
+                        <a href="{% url 'edit_qilish' product.id %}" style="text-decoration: none;">
+                            <button style="background-color: #3b82f6; color: white; border: none; padding: 6px 10px; border-radius: 4px; font-size: 12px; cursor: pointer;">Edit</button>
+                        </a>
+                        <a href="{% url 'delet' product.id %}"style="text-decoration: none;">
+                            <button style="background-color: #dc2626; color: white; border: none; padding: 6px 10px; border-radius: 4px; font-size: 12px; cursor: pointer;">Delete</button>
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <p style="font-size: 14px; color: #6b7280; font-style: italic;">Siz hali mahsulot qo'shmagansiz.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

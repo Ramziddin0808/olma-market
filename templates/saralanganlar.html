@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sizga yoqqan mahsulotlar</title>
+    <link rel="stylesheet" href="{% static 'saralangan.css' %}">
+</head>
+<body>
+
+    <div class="favorites-container">
+        <h1 class="favorites-title">Sizga yoqqan mahsulotlar</h1>
+
+        <div class="fav-grid">
+            {% for market in saralangan_mahsulotlar %}
+                <div class="fav-card" id="product-card-{{ market.id }}">
+                    
+                    <div class="card-media">
+                        <button class="remove-fav-btn",onclick="removeFavorite({{ market.id }})" type="button">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="#e53e3e" stroke="#e53e3e" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+
+                        {% if market.image %}
+                            <img src="{{ market.image.url }}" alt="{{ market.title }}">
+                        {% elif market.gallery.all %}
+                            <img src="{{ market.gallery.first.image.url }}" alt="{{ market.title }}">
+                        {% else %}
+                            <div style="display:flex; justify-content:center; align-items:center; height:100%; background:#edf2f7;">Rasm yo'q</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <a href="{% url 'market_detail' market.id %}" class="card-title">{{ market.title }}</a>
+                        
+                        <div class="card-meta">
+                            <span class="price">{{ market.narx }} so'm</span>
+                            <span class="quality">{{ market.sifati }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p style="grid-column: 1/-1; text-align: center; color: #777; padding: 50px 0; font-size: 16px;">
+                    Sizga yoqqan mahsulotlar hozircha yoq. <a href="{% url 'home' %}" style="color: #7000ff; text-decoration: underline;">Bosh sahifaga qaytish</a>
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function removeFavorite(mahsulotId) {
+            const csrftoken = '{{ csrf_token }}';
+            
+            fetch(`/saralangan/toggle/${mahsulotId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'removed') {
+                    // Sahifadan o'sha kartochkani silliq o'chirib tashlaydi
+                    const card = document.getElementById(`product-card-${mahsulotId}`);
+                    if(card) card.remove();
+                }
+            })
+            .catch(error => console.error('Xatolik:', error));
+        }
+    </script>
+</body>
+</html>

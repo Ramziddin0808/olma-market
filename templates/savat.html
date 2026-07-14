@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="cart-wrapper" style="max-width: 800px; margin: 50px auto; padding: 20px; font-family: sans-serif;">
+    
+    {% if savat_mahsulotlari %}
+        <h1 style="font-size: 24px; margin-bottom: 20px;">Sizning savatingiz</h1>
+        {% for item in savat_mahsulotlari %}
+            <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
+                <h3>{{ item.mahsulot.title }}</h3>
+                <p>Soni: {{ item.soni }} ta</p>
+                <p>Narxi: {{ item.jami_narxi }} so'm</p>
+                <a href="{% url 'savatdan_ochirish' pk=item.mahsulot.pk %}" style="color: red;">O'chirish</a>
+            </div>
+        {% endfor %}
+        
+        <div style="margin-top: 20px; font-size: 20px; font-weight: bold;">
+            Jami summa: {{ jami_narx }} so'm
+        </div>
+    {% else %}
+        <div class="empty-cart-container" style="text-align: center; padding: 50px 20px; background: #ffffff; border-radius: 12px; border: 1px solid #e3e5ec;">
+            <div style="font-size: 60px; margin-bottom: 15px;">🛒</div>
+            <h2 style="font-size: 22px; color: #1f2026; margin-bottom: 10px;">Siz hali mahsulotni savatga solmadingiz</h2>
+            <p style="color: #8b8e99; font-size: 15px; margin-bottom: 20px;">Xarid qilishni boshlash uchun bosh sahifaga o'ting.</p>
+            <a href="/" style="background: #7000ff; color: white; padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">
+                Asosiy sahifaga o'tish
+            </a>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

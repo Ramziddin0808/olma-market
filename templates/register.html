@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roʻyxatdan oʻtish</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+
+    <div class="video-bg">
+        <video autoplay loop muted playsinline>
+            <source src="{% static 'dark-winter-forest-road-moewalls-com.mp4' %}" type="video/mp4">
+            Brauzeringiz ushbu videoni qo'llab-quvvatlamaydi.
+        </video>
+    </div>
+
+    <div class="login-container">
+        <h2>Roʻyxatdan oʻtish</h2> <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="login-btn">Roʻyxatdan oʻtish</button>
+        </form>
+        
+        <div class="form-footer">
+            <p>Akkauntingiz bormi? <a href="{% url 'login' %}">Tizimga kirish</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

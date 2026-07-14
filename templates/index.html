@@ -1,0 +1,469 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ market.title }} - Uzum Market{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'detail.css' %}">
+
+<div class="detail-page-wrapper">
+    <video autoplay loop muted playsinline class="bg-video">
+        <source src="{% static 'background.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="detail-container">
+        <div class="detail-left">
+            {% if market.image %}
+            <div class="product-image-wrap">
+                <img src="{{ market.image.url }}" alt="{{ market.title }}" class="product-img">
+            </div>
+            {% else %}
+            <div class="detail-placeholder">
+                <span>{{ market.title|slice:":1"|upper }}</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="detail-right">
+            <h1 class="product-title">{{ market.title }}</h1>
+            
+            <div class="product-rating">
+                <span class="stars">⭐⭐⭐⭐•</span>
+                <span class="rating-text">4.7 (503 sharh) • 2000+ buyurtma</span>
+            </div>
+
+            <div class="product-price-box">
+                <span class="current-price">{{ market.narx }} so'm</span>
+                <div class="loan-badge">Kreditga ham mavjud</div>
+                <span style="color: black; margin-left: 10px;">Sifati: {{ market.sifati }}</span>
+            </div>
+
+            <div class="product-description">
+                <h3>Mahsulot tavsifi:</h3>
+                <div class="desc-content">
+                    {{ market.description|safe }}
+                </div>
+            </div>
+
+            <div class="action-buttons">
+            <button class="btn btn-buy">1 klikda xarid qilish</button>
+    
+             <a href="/savat/qoshish/{{ market.pk }}/" class="btn btn-cart" style="text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center;">
+              Savatga qo'shish
+             </a>
+</div>
+
+            <hr class="detail-hr">
+
+            <a href="{% url 'home' %}" class="back-link">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Orqaga qaytish
+            </a>
+        </div>
+    </div>
+
+    <div class="comments-section" style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #e3e5ec;">
+        <h2 style="color: #1f2026; font-size: 22px; margin-bottom: 24px; font-weight: 700;">Fikr-mulohazalar</h2>
+        
+        <form method="POST" enctype="multipart/form-data" class="uzum-comment-form">
+            {% csrf_token %}
+            <div class="form-row" style="display: flex; gap: 20px; margin-bottom: 15px; align-items: center;">
+                <input type="text" name="ism" placeholder="Ismingiz" required class="comment-input">
+                
+                <div class="rating-select-container">
+                    <span style="font-size: 14px; color: #595b66; font-weight: 500;">Baholang:</span>
+                    <div class="star-rating-input">
+                        <input type="radio" id="star5" name="rating" value="5" checked><label for="star5" title="A'lo">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="Yaxshi">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="O'rtacha">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="Yomon">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="Juda yomon">★</label>
+                    </div>
+                </div>
+            </div>
+
+            <textarea name="matn" placeholder="Fikringizni qoldiring (Afzalliklari, kamchiliklari, yetkazib berish)..." rows="4" required class="comment-textarea"></textarea>
+            
+            <div class="form-bottom-actions">
+                <label class="upload-file-btn">
+                    📷 Rasm yuklash (Ixtiyoriy)
+                    <input type="file" name="rasm" accept="image/*" style="display: none;" onchange="previewImage(this)">
+                </label>
+                <div id="image-preview" style="display: inline-block; margin-left: 15px; vertical-align: middle;"></div>
+
+                <button type="submit" class="btn btn-cart" style="margin-left: auto; padding: 12px 32px; border-radius: 8px; font-weight: 600;">Yuborish</button>
+            </div>
+        </form>
+
+        {% if izohlar %}
+        <div class="reviews-carousel-wrapper">
+            <div class="reviews-carousel-track" id="carouselTrack">
+                {% for izoh in izohlar %}
+                    <div class="review-slide-card">
+                        {% if izoh.rasm %}
+                        <div class="review-media-preview">
+                            <img src="{{ izoh.rasm.url }}" alt="sharh rasm">
+                        </div>
+                        {% endif %}
+
+                        <div class="review-card-header">
+                            <strong class="review-author">{{ izoh.ism }}</strong>
+                            <span class="review-date">{{ izoh.vaqt|date:"d-F" }}</span>
+                        </div>
+
+                        <div class="review-rating-stars">
+                            {% if izoh.rating == 5 %} ★★★★★
+                            {% elif izoh.rating == 4 %} ★★★★☆
+                            {% elif izoh.rating == 3 %} ★★★☆☆
+                            {% elif izoh.rating == 2 %} ★★☆☆☆
+                            {% else %} ★☆☆☆☆
+                            {% endif %}
+                        </div>
+
+                        <p class="review-text-content">
+                            <strong>Izoh:</strong> {{ izoh.matn }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="carousel-nav-btn prev" id="btnPrev" onclick="moveCarousel(-1)">❮</button>
+            <button class="carousel-nav-btn next" id="btnNext" onclick="moveCarousel(1)">❯</button>
+        </div>
+        {% else %}
+            <p style="color: #8b8e99; font-style: italic; margin-top: 30px; text-align: center; font-size: 15px;">Hozircha sharhlar yo'q. Birinchi bo'lib fikringizni qoldiring!</p>
+        {% endif %}
+
+        <p style="margin-top: 40px; font-size: 14px; color: #595b66;">Muallif: <strong style="color: #1f2026;">{{ market.author.username }}</strong></p>
+    </div>
+</div>
+{% if hamma_mahsulotlar %}
+    <div class="similar-products-section" style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #e3e5ec;">
+        <h2 style="color: #1f2026; font-size: 22px; margin-bottom: 24px; font-weight: 700;">Boshqa mahsulotlarimiz</h2>
+        
+        <div class="similar-products-grid">
+            {% for mahsulot in hamma_mahsulotlar %}
+                <div class="similar-card">
+                    <a href="{% url 'market_detail' pk=mahsulot.pk %}" style="text-decoration: none; color: inherit;">
+                        <div class="similar-img-wrap">
+                            {% if mahsulot.image %}
+                                <img src="{{ mahsulot.image.url }}" alt="{{ mahsulot.title }}">
+                            {% else %}
+                                <div class="no-img-placeholder">Rasm yo'q</div>
+                            {% endif %}
+                        </div>
+                        <div class="similar-info">
+                            <h4 class="similar-title">{{ mahsulot.title }}</h4>
+                            <div class="similar-rating">⭐⭐⭐⭐☆</div>
+                            <div class="similar-price">{{ mahsulot.narx }} so'm</div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+<style>
+    .uzum-comment-form {
+        background: #ffffff;
+        padding: 24px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        border: 1px solid #e3e5ec;
+        margin-bottom: 40px;
+    }
+    .comment-input {
+        width: 320px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        outline: none;
+        font-size: 15px;
+        transition: 0.15s;
+    }
+    .comment-input:focus, .comment-textarea:focus {
+        border-color: #7000ff;
+    }
+    .comment-textarea {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        outline: none;
+        resize: none;
+        font-size: 15px;
+        margin-bottom: 15px;
+        transition: 0.15s;
+    }
+    .form-bottom-actions {
+        display: flex;
+        align-items: center;
+    }
+    .upload-file-btn {
+        background-color: #f2f4f7;
+        padding: 11px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 14px;
+        transition: 0.2s;
+        border: 1px solid transparent;
+    }
+    .upload-file-btn:hover {
+        background-color: #e3e5ec;
+    }
+    
+    /* Yulduzchali reyting */
+    .rating-select-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .star-rating-input {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+    .star-rating-input input { display: none; }
+    .star-rating-input label {
+        font-size: 26px;
+        color: #cbd5e0;
+        cursor: pointer;
+        transition: color 0.15s;
+        padding: 0 2px;
+    }
+    .star-rating-input label:hover,
+    .star-rating-input label:hover ~ label,
+    .star-rating-input input:checked ~ label {
+        color: #ffc107;
+    }
+
+    /* Karusel stillari */
+    .reviews-carousel-wrapper {
+        position: relative;
+        margin-top: 30px;
+        overflow: hidden;
+        padding: 10px 5px;
+    }
+    .reviews-carousel-track {
+        display: flex;
+        gap: 20px;
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        will-change: transform;
+    }
+    .review-slide-card {
+        min-width: 360px;
+        max-width: 360px;
+        background: #ffffff;
+        border: 1px solid #e3e5ec;
+        border-radius: 14px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        box-sizing: border-box;
+    }
+    .review-media-preview {
+        width: 100%;
+        height: 180px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #f7fafc;
+        margin-bottom: 15px;
+    }
+    .review-media-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .review-card-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        align-items: center;
+    }
+    .review-author { color: #1f2026; font-size: 15px; font-weight: 600; }
+    .review-date { color: #8b8e99; font-size: 13px; }
+    .review-rating-stars {
+        color: #ffc107;
+        font-size: 16px;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
+    }
+    .review-text-content {
+        font-size: 14px;
+        color: #4a5568;
+        line-height: 1.5;
+    }
+
+    /* Karusel tugmalari */
+    .carousel-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.2s;
+    }
+    .carousel-nav-btn:hover {
+        background: #f1f5f9;
+        border-color: #94a3b8;
+    }
+    .carousel-nav-btn.prev { left: 5px; }
+    .carousel-nav-btn.next { right: 5px; }
+/* Bosh sahifa menyusidagi kabi mahsulotlar griddi */
+.similar-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+    padding: 10px 0;
+}
+
+/* Mahsulot kartochkasi */
+.similar-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e0e2e8;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Sichqoncha ustiga kelgandagi effekt */
+.similar-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: #7000ff; /* Uzum rangidagi hoshiya */
+}
+
+/* Rasm joylashadigan konteyner */
+.similar-img-wrap {
+    width: 100%;
+    height: 240px; /* Rasmlar balandligi bir xil bo'lishi uchun */
+    background-color: #f5f6f9;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Rasmning o'zi */
+.similar-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Rasmni cho'zmasdan, chiroyli kesib joylashtiradi */
+    transition: transform 0.5s ease;
+}
+
+.similar-card:hover .similar-img-wrap img {
+    transform: scale(1.05); /* Hover bo'lganda rasm biroz yaqinlashadi */
+}
+
+/* Agar rasm bo'lmasa ko'rinadigan qism */
+.no-img-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: #e2e8f0;
+    color: #718096;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Mahsulot matnlari qismi */
+.similar-info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Pastdagi kontentlar tekis turishi uchun */
+    justify-content: space-between;
+}
+
+/* Mahsulot nomi */
+.similar-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1f2026;
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 42px; /* Qatorlar balandligi bir xilda turadi */
+}
+
+/* Yulduzchali reyting */
+.similar-rating {
+    font-size: 13px;
+    color: #ffc107;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Mahsulot narxi */
+.similar-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2026;
+    margin-top: auto; /* Narxni har doim eng pastga tekislab qo'yadi */
+    border-top: 1px solid #f0f1f5;
+    padding-top: 10px;
+}
+</style>
+
+<script>
+    // Rasm yuklanganda kichik rasmcha (preview) ko'rsatish
+    function previewImage(input) {
+        const preview = document.getElementById('image-preview');
+        preview.innerHTML = '';
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '45px';
+                img.style.height = '45px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '6px';
+                img.style.border = '1px solid #e3e5ec';
+                preview.appendChild(img);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Karusel surish skripti
+    let currentTranslate = 0;
+    const track = document.getElementById('carouselTrack');
+    
+    function moveCarousel(direction) {
+        if (!track) return;
+        const cardWidth = 380; // (360px kartochka + 20px oraliq)
+        const maxScroll = track.scrollWidth - track.parentElement.clientWidth;
+        
+        currentTranslate -= direction * cardWidth;
+        
+        if (currentTranslate > 0) {
+            currentTranslate = 0;
+        } else if (Math.abs(currentTranslate) > maxScroll) {
+            currentTranslate = -maxScroll;
+        }
+        
+        track.style.transform = `translateX(${currentTranslate}px)`;
+    }
+</script>
+{% endblock %} ```

@@ -1,0 +1,155 @@
+/* Umumiy sozlamalar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Login bloki */
+.login-container {
+    background: rgba(255, 255, 255, 0.15); /* Shaffoflik darajasi: 0.15 */
+    backdrop-filter: blur(15px); /* Orqa fonni xiralashtirish effekti (shisha effekti) */
+    -webkit-backdrop-filter: blur(15px); /* Safari brauzeri uchun */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Chetiga mayin oq chiziq */
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333333;
+}
+
+/* Ma'lumot kiritish joylari */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #666666;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Inputga bosilgandagi effekt */
+.input-group input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+
+
+.login-btn:hover {
+    background: #0056b3;
+}
+/* Umumiy sozlamalar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Skrol chiqmasligi uchun */
+}
+
+/* Orqa fondagi video sozlamalari */
+.video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Formadan orqada turishi shart */
+}
+
+.video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Videoni ekranga moslab cho'zadi */
+}
+
+
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333333;
+}
+
+/* Ma'lumot kiritish joylari */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #444444;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Kirish tugmasi */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background: #0056b3;
+}
